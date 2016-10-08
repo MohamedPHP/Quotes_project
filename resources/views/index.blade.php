@@ -2,6 +2,9 @@
 
 
 @section('content')
+    @if (isset($message))
+        <div class="alert alert-success">{{ $success }}</div>
+    @endif
     <div class="row">
     	<h2 class="text-center">Quotes</h2>
     	<hr>
@@ -92,7 +95,7 @@
     <div class="row">
     	<h2 class="text-primary text-center">Add New</h2>
     	<div class="col-md-6 col-md-offset-3">
-    		<form method="post" action="{{ route('create') }}">
+    		<form action="{{ route('create') }}" method="post">
     			<input class="form-control" id="Author" name="Author" placeholder="Author" type="text"><br>
     			<textarea class="form-control" cols="40" name="Quote" placeholder="Quate" rows="8"></textarea><br>
     			<button class="btn btn-primary" type="submit">Add</button> {{ csrf_field() }}
