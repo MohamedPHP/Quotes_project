@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Quote extends Model
 {
-    public function auther()
+    public function author()
     {
         return $this->belongsTo('App\Author');
     }
