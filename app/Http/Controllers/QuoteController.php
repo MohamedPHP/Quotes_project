@@ -12,9 +12,16 @@ use App\Http\Requests;
 
 class QuoteController extends Controller
 {
-    public function getIndex()
+    public function getIndex($author = null)
     {
-        $quotes = Quote::all();
+        if (!is_null($author)) {
+            $author_exsists = Author::where('name', $author)->first();
+            if ($author_exsists) {
+                $quotes = $author_exsists->quotes()->orderBy('created_at', 'desc')->paginate(6);
+                return view('index', ['quotes' => $quotes, ]);
+            }
+        }
+        $quotes = Quote::paginate(6);
         return view('index', ['quotes' => $quotes]);
     }
     public function postQuote(Request $request)
@@ -41,10 +48,13 @@ class QuoteController extends Controller
     public function getDelete($quote_id)
     {
         $quote = Quote::find($quote_id);
-        if (count($quote->author->qoutes) === 1) {
+        $author_delete = false;
+        if (count($quote->author->quotes) === 1) {
             $quote->author->delete();
+            $author_delete = true;
         }
         $quote->delete();
-        return redirect('/');
+        $msg = $author_delete === false ? 'Quote Deleted Sucessfully' : 'Quote Deleted Sucessfully And Author Also';
+        return redirect()->route('index')->with(['message' => $msg]);
     }
 }

@@ -2,6 +2,11 @@
 
 
 @section('content')
+    @if (!empty(Request::segment(1)))
+        <div class="row">
+            <div class="alert alert-info text-center">All Qoutes of {{ Request::segment(1) }}, <a href="{{ route('index') }}">Back To Index</a></div>
+        </div>
+    @endif
     @if (count($errors) > 0)
         <div class="row">
             @foreach ($errors->all() as $e)
@@ -22,8 +27,8 @@
                 <div class="col-md-4">
             		<div class="thumbnail" style="box-shadow: 6px 7px 4px #999;">
             			<div class="caption">
-            				<p> {{ $q->quote }} <span style="color: #777">Created By : <a href="#" style="color: #555">{{ $q->author->name }}</a> On {{ $q->created_at }}</span></p>
-            				<p><a class="btn btn-info" href="#">Edit</a> <a class="btn btn-danger" href="{{ route('delete', ['quote_id' => $q->id]) }}">Delete</a></p>
+            				<p> {{ $q->quote }} <span style="color: #777">Created By : <a href="{{ route('index', ['author' => $q->author->name]) }}" style="color: #555">{{ $q->author->name }}</a> On {{ $q->created_at }}</span></p>
+            				<p><a class="btn btn-danger" href="{{ route('delete', ['quote_id' => $q->id]) }}">Delete</a></p>
             			</div>
             		</div>
             	</div>
@@ -34,31 +39,7 @@
     </div>
     <hr>
     <div class="text-center">
-    	<nav aria-label="Page navigation">
-    		<ul class="pagination">
-    			<li>
-    				<a aria-label="Previous" href="#"><span aria-hidden="true">&laquo;</span></a>
-    			</li>
-    			<li>
-    				<a href="#">1</a>
-    			</li>
-    			<li>
-    				<a href="#">2</a>
-    			</li>
-    			<li>
-    				<a href="#">3</a>
-    			</li>
-    			<li>
-    				<a href="#">4</a>
-    			</li>
-    			<li>
-    				<a href="#">5</a>
-    			</li>
-    			<li>
-    				<a aria-label="Next" href="#"><span aria-hidden="true">&raquo;</span></a>
-    			</li>
-    		</ul>
-    	</nav>
+    	{{ $quotes->links() }}
     </div>
     <hr>
     <div class="row">
