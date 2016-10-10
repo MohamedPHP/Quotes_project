@@ -28,3 +28,20 @@ Route::get('/gotmail/{author_name}', [
     'uses'  =>  'QuoteController@getMailCallback',
     'as'    =>  'mail.callback'
 ]);
+Route::get('/admin/login', [
+    'uses'  =>  'AdminController@getlogin',
+    'as'    =>  'login'
+]);
+Route::get('/admin/logout', [
+    'uses'  =>  'AdminController@getlogout',
+    'as'    =>  'logout'
+]);
+Route::post('/admin/login', [
+    'uses'  =>  'AdminController@postlogin',
+    'as'    =>  'login'
+]);
+
+Route::get('/admin/dashboard', [
+    'uses'  =>  'AdminController@getDashboard',
+    'as'    =>  'dashboard'
+]);
