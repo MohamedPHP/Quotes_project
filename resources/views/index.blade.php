@@ -48,6 +48,8 @@
     		<form action="{{ route('create') }}" method="post">
     			<input class="form-control" id="Author" name="Author" placeholder="Author" type="text">
                 <br>
+    			<input class="form-control" id="email" name="email" placeholder="email" type="email">
+                <br>
     			<textarea class="form-control" name="Quote" placeholder="Quate Describtion"></textarea>
                 <br>
     			<button class="btn btn-primary" type="submit">Add</button> {{ csrf_field() }}
@@ -55,15 +57,5 @@
     	</div>
     </div>
     <hr>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
     <br>
 @endsection
